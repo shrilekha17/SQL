@@ -15,9 +15,9 @@ Select accounts.primary_poc,
 
 
  Question 2
- rovide a table that provides the region for each sales_rep along with their associated accounts.
-  Your final table should include three columns: the region name, the sales rep name, and the account name.
-   Sort the accounts alphabetically (A-Z) according to account name.
+ Provide a table that provides the region for each sales_rep along with their associated accounts.
+ Your final table should include three columns: the region name, the sales rep name, and the account name.
+  Sort the accounts alphabetically (A-Z) according to account name.
 
  Solution 2
 select region.name AS region_name, sales_reps.name as rep_name, accounts.name as account_name
@@ -27,12 +27,12 @@ JOIN accounts ON sales_reps.id = accounts.sales_rep_id
 order by accounts.name;
 
 
-Question 3 (Ask why not working)
+Question 3 
 Provide the name for each region for every order, as well as the account
  name and the unit price they paid (total_amt_usd/total) for the order.
   Your final table should have 3 columns: region name, account name, and unit price
 
-Solution:
+Solution 3:
 select r.name region_name, a.name account_name, o.total_amt_usd/(o.total+0.0000001) unit price
 FROM account a
 JOIN orders o  ON o.account_id = a.id
@@ -45,7 +45,7 @@ associated accounts. This time only for the Midwest region. Your final table
 should include three columns: the region name, the sales rep name, and the account
 name. Sort the accounts alphabetically (A-Z) according to account name
 
-Solution:
+Solution 4:
 SELECT s.name s_name, r.name r_name, a.name a_name 
 from sales_reps s
 JOIN region r ON s.region_id = r.id 
@@ -61,7 +61,7 @@ This time only for accounts where the sales rep has a first name starting with S
 Your final table should include three columns: the region name, the sales rep name, and the account name. 
 Sort the accounts alphabetically (A-Z) according to account name
 
-Solution:
+Solution 5:
 SELECT s.name s_name, r.name r_name, a.name a_name 
 from accounts a
 JOIN sales_reps s ON a.sales_rep_id= s.id
@@ -71,13 +71,13 @@ JOIN region r ON r.id = s.region_id
 order by a.name; 
 
 
-Question 7
+Question 6
 Provide the name for each region for every order, as well as the account name and the unit price they
 paid (total_amt_usd/total) for the order. However, you should only provide the results if the standard 
 order quantity exceeds 100. Your final table should have 3 columns: region name, account name, and unit price. 
 In order to avoid a division by zero error, adding .01 to the denominator here is helpful total_amt_usd/(total+0.01
 
-Solution:
+Solution 6:
 SELECT r.name as region_name, a.name as account_name , o.total_amt_usd/(o.total+0.01) as unit_price
 from accounts as a
 JOIN orders o ON a.id = o.account_id
@@ -86,7 +86,7 @@ JOIN sales_reps s ON s.id = a.sales_rep_id
 JOIN region r ON s.region_id = r.id;
 
 
-Question 8
+Question 7
 Provide the name for each region for every order, as well as the account name and the unit 
 price they paid (total_amt_usd/total) for the order. However, you should only provide the 
 results if the standard order quantity exceeds 100 and the poster order quantity exceeds 50.
@@ -94,7 +94,7 @@ results if the standard order quantity exceeds 100 and the poster order quantity
  the smallest unit price first. In order to avoid a division by zero error, adding .01 to the 
  denominator here is helpful (total_amt_usd/(total+0.01)
 
-Solution
+Solution 8
 SELECT r.name as region_name, a.name as account_name , o.total_amt_usd/(o.total+0.01) as unit_price
 from accounts as a
 JOIN orders o ON a.id = o.account_id
@@ -110,7 +110,7 @@ What are the different channels used by account id 1001? Your final
 table should have only 2 columns: account name and the different channels. 
 You can try SELECT DISTINCT to narrow down the results to only the unique values.
 
-Solution
+Solution 9
 SELECT distinct(w.channel), a.name from 
 accounts a
 JOIN web_events w ON w.account_id = a.id 
@@ -121,19 +121,17 @@ Question 10
 Find all the orders that occurred in 2015. Your final table should have 4 
 columns: occurred_at, account name, order total, and order total_amt_usd
 
-Solution 
+Solution 10
 SELECT o.occurred_at, a.name, o.total, o.total_amt_usd from orders o
 JOIN accounts a ON a.id = o.account_id
 WHERE o.occurred_at between '01-01-2015' AND '01-01-2016'
 order by o.occurred_at DESC;
 
 
-
-
-
 Question 11
 Provide the name of the sales_rep in each region with the largest amount of total_amt_usd sales.
 
+Solution 11
 Select t3.region, t3.sales_name, t3.largest_total_usd from
 (Select region, max(largest_total_usd) maximum
 FROM
@@ -170,7 +168,6 @@ group by 2;
 
 
 Question 13
-
 Use the accounts table and a CASE statement to create two groups: one group 
 of company names that start with a number and a second group of those company 
 names that start with a letter. What proportion of company names start with a letter?
